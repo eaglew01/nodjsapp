@@ -1,4 +1,4 @@
-This API has the following feutures:
+This API has the following features:
 
 CRUD INTERFACES:
 
