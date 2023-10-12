@@ -1,7 +1,13 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const User=  require('./models/userModel');
+const mongoURI=process.env.MONGO_URI;
+
+
+console.log('Mongouri', mongoURI);
 
 //MIDDLEWARE
 app.use(express.json());
@@ -67,7 +73,7 @@ app.put('/users/:id', async(req, res) => {
 
 //DATABASE CONNECTION
 mongoose.set("strictQuery", false)
-mongoose.connect('mongodb+srv://wouterdecleer258:HjdRYLqLBBH3Rwuo@clusterfornodejsapp.0cervla.mongodb.net/NodeJSApp2?retryWrites=true&w=majority')
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() =>{
     console.log("Database is connected")
     app.listen(3000, ()=> {
