@@ -3,7 +3,16 @@ const mongoose= require('mongoose');
 const validator=require('validator');
 const bcrypt = require('bcryptjs');
 
+const nameValidator = [
+    {
+      validator: value => /^[A-Za-z ]+$/.test(value),
+      message: 'A name can only contain alphabetic characters and spaces',
+    },
+  ];
+  
+
 var userSchema=new mongoose.Schema({
+        userID: Number, 
         nickname: {
         type: String, 
         require: true,
@@ -12,12 +21,14 @@ var userSchema=new mongoose.Schema({
         lastname: {
         type: String, 
         require: true,
-        validate: [validator.isAlpha, "A lastname cannot contain numbers"],
+        validate: nameValidator,
+        //validate: [validator.isAlpha(String, 'en-US,fr-FR,de-DE', {ignore:' /'}), "A lastname cannot contain numbers"],
         },
         firstname: {
         type: String, 
         require: true,
-        validate: [validator.isAlpha, "A firstname cannot contain numbers"],
+        validate: nameValidator,
+        //validate: [validator.isAlpha, "A firstname cannot contain numbers"],
         },
         password: {
         type: String,
@@ -39,7 +50,8 @@ var userSchema=new mongoose.Schema({
         unique: true,
         validate: [validator.isEmail, "Not a valid email adress"]
         },
-    });
+    },
+    {userID: false});
 
 // Middleware to hash the password before saving
 userSchema.pre('save', async function (next) {
@@ -56,6 +68,28 @@ userSchema.pre('save', async function (next) {
         return next(error);
     }
 });
+
+// //Middleware to give a unique autoincremented ID to the user
+// userSchema.pre("save", function (next) {
+//      let doc = this;
+//      sequencing.getSequenceNextValue("user_id").
+//      then(counter => {
+//          console.log("asdasd", counter);
+//          if(!counter) {
+//              sequencing.insertCounter("user_id")
+//              .then(counter => {
+//                  doc.userID = counter;
+//                  console.log(doc)
+//                  next();
+//              })
+//              .catch(error => next(error))
+//          } else {
+//              doc.userID = counter;
+//              next();
+//          }
+//      })
+//      .catch(error => next(error))
+//  });
 
 const User = mongoose.model('User', userSchema);
 module.exports=User;

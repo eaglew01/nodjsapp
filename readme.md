@@ -10,6 +10,11 @@ USER
 
 POST
 
+
+GET
+127.0.0.1:3000/users
+get all users from database
+
 EXTRAS
 -The mongoDB URI is not on github, but stored in a seperate .env file.
 
