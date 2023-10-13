@@ -1,16 +1,28 @@
-const mongoose=require('mongoose');
+//const { default: TypedRegistry } = require('chart.js/dist/core/core.typedRegistry');
+const mongoose= require('mongoose');
 const validator=require('validator');
+const bcrypt = require('bcryptjs');
 
-const userSchema=new mongoose.Schema({
-        lastname: {
+var userSchema=new mongoose.Schema({
+        nickname: {
         type: String, 
         require: true,
         unique: true,
         },
+        lastname: {
+        type: String, 
+        require: true,
+        validate: [validator.isAlpha, "A lastname cannot contain numbers"],
+        },
         firstname: {
         type: String, 
         require: true,
-        unique: true,
+        validate: [validator.isAlpha, "A firstname cannot contain numbers"],
+        },
+        password: {
+        type: String,
+        require: true,
+        minLength: 8,
         },
         createdAt: {
         type: Date,
@@ -19,10 +31,31 @@ const userSchema=new mongoose.Schema({
         phoneNumber: {
         type: String,
         unique: true,
-        validate: [validator.isMobilePhone, "Dit is geen geldig telefoonnummer"]
-        }
+        validate: [validator.isMobilePhone, "Not a valid phone number"]
+        },
+        email: {
+        type: String,
+        require: true,
+        unique: true,
+        validate: [validator.isEmail, "Not a valid email adress"]
+        },
     });
+
+// Middleware to hash the password before saving
+userSchema.pre('save', async function (next) {
+    const user = this;
+
+    if (!user.isModified('password')) return next();
+
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(user.password, salt);
+        user.password = hashedPassword;
+        return next();
+    } catch (error) {
+        return next(error);
+    }
+});
 
 const User = mongoose.model('User', userSchema);
 module.exports=User;
-

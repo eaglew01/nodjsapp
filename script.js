@@ -6,8 +6,8 @@ const app = express();
 const User=  require('./models/userModel');
 const mongoURI=process.env.MONGO_URI;
 
-
-console.log('Mongouri', mongoURI);
+//Check if MongoURI is passed
+//console.log('MongoURI=', mongoURI);
 
 //MIDDLEWARE
 app.use(express.json());
@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
 
 
 //get al users from database
-app.get('/user', async(req, res) => {
+app.get('/users', async(req, res) => {
     try {
         const users = await User.find({});
         res.status(200).json(users);
