@@ -12,8 +12,14 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 //*******ROUTES********
+//User route
 const userRoutes = require('./routes/routesUser');
 app.use('/user', userRoutes);
+//Post route
+const postRoutes = require('./routes/routesPost');
+app.use('/post', postRoutes);
+
+
 
 // //Create 1 new user
 // app.post('/user/postOne', async(req, res) => {

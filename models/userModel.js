@@ -73,27 +73,6 @@ userSchema.pre('save', async function (next) {
     }
 });
 
-// //Middleware to give a unique autoincremented ID to the user
-// userSchema.pre("save", function (next) {
-//      let doc = this;
-//      sequencing.getSequenceNextValue("user_id").
-//      then(counter => {
-//          console.log("asdasd", counter);
-//          if(!counter) {
-//              sequencing.insertCounter("user_id")
-//              .then(counter => {
-//                  doc.userID = counter;
-//                  console.log(doc)
-//                  next();
-//              })
-//              .catch(error => next(error))
-//          } else {
-//              doc.userID = counter;
-//              next();
-//          }
-//      })
-//      .catch(error => next(error))
-//  });
 
 const User = mongoose.model('User', userSchema);
 module.exports=User;

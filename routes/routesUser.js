@@ -1,11 +1,11 @@
 // ******PACKAGES******
-require('dotenv').config();
+//require('dotenv').config();
 const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
+//const router = express.Router();
+//const mongoose = require('mongoose');
 const app = express();
 const User=  require('../models/userModel');
-const mongoURI=process.env.MONGO_URI;
+//const mongoURI=process.env.MONGO_URI;
 
 // ******ROUTES******
 //Create 1 new user
