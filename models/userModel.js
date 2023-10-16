@@ -2,6 +2,7 @@
 const mongoose= require('mongoose');
 const validator=require('validator');
 const bcrypt = require('bcryptjs');
+//const { Int32 } = require('mongodb');
 
 const nameValidator = [
     {
@@ -12,7 +13,9 @@ const nameValidator = [
   
 
 var userSchema=new mongoose.Schema({
-        userID: Number, 
+        userID: {
+        type: Number,
+        },
         nickname: {
         type: String, 
         require: true,
@@ -50,8 +53,9 @@ var userSchema=new mongoose.Schema({
         unique: true,
         validate: [validator.isEmail, "Not a valid email adress"]
         },
-    },
-    {userID: false});
+    }
+    //,{userID: false}
+    );
 
 // Middleware to hash the password before saving
 userSchema.pre('save', async function (next) {
