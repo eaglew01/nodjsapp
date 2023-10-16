@@ -31,13 +31,15 @@ limit = limits the return value
 offset = skips postts
 /getPosts?limit=<<limit>>&offset=<<offset>>
 
+## GET all posts off a certain category
+/getPostsCategory/:category
 
 ## PUT update 1 post based on postID
 updatePost/:postID
 
 get all users from database
 
-EXTRAS
+# EXTRAS
 -The mongoDB URI and password is not on github, but stored in a seperate .env file.
 
 -Added encryption to the password send to the databae

@@ -90,6 +90,20 @@ app.get('/getPosts', async (req, res) => {
     }
 });
 
+//get number of post based on a category
+app.get('/getPostsCategory/:category', async (req, res) => {
+    try {
+        const category = req.params.category;
+        const posts = await Post.find({ category: category });
 
+        if (posts.length === 0) {
+            return res.status(404).json({ message: 'No posts in this category' });
+        }
+
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 module.exports = app;
