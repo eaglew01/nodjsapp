@@ -7,31 +7,33 @@ This API has the following features:
 
 CRUD INTERFACES:
 
-#USER
+# USER
 
 
 
-#POST
+# POST
 /post
 
 
-
-##Post 1 post in database
+## POST: Post 1 post in database
 /postOne
+Use the convenant yaml file
 
-##Delete 1 post in database based on postID
-/deletePost/<<PostID number>>
+## Delete 1 post in database based on postID
+/deletePost/:postID
 
-GET
-Get all posts in database
+
+## GET all posts in database
 /getAllPosts
 
-Get post based on limit and offset
+## GET post based on limit and offset
 limit = limits the return value
 offset = skips postts
 /getPosts?limit=<<limit>>&offset=<<offset>>
 
-GET
+
+## PUT update 1 post based on postID
+updatePost/:postID
 
 get all users from database
 
