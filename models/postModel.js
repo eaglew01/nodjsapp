@@ -35,10 +35,7 @@ var postSchema=new mongoose.Schema({
         },
 
     }
-    //,{postID: false}
-    );
-
-
+ );
 
 const Post = mongoose.model('Post', postSchema);
 module.exports=Post;

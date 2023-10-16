@@ -75,11 +75,11 @@ app.get('/getAllPosts', async (req, res) => {
 //get number of post based on a range of postID
 app.get('/getPosts', async (req, res) => {
     try {
-        // Set default values for limit and offset or extract them from the query parameters
-        const limit = parseInt(req.query.limit) //|| 3; // Default limit to 10 if not provided
-        const offset = parseInt(req.query.offset) //|| 2; // Default offset to 0 if not provided
+        
+        const limit = parseInt(req.query.limit)
+        const offset = parseInt(req.query.offset)
 
-        // Retrieve the list of posts with postID in the range from 1 to 5, applying limit and offset
+        // Retrieve the list of posts, applying limit and offset
         const postsInRange = await Post.find()
             .limit(limit)
             .skip(offset);

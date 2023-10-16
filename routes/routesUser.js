@@ -8,6 +8,7 @@ const User=  require('../models/userModel');
 //const mongoURI=process.env.MONGO_URI;
 
 // ******ROUTES******
+
 //Create 1 new user
 app.post('/postOne', async(req, res) => {
     //res.send('Post API')
@@ -23,8 +24,33 @@ app.post('/postOne', async(req, res) => {
 
 
 
-//Update 1 user
+//Update 1 user based on userID
+app.put('/updateUser/:userID', async (req, res) => {
+    const userID = req.params.userID;
+    try {
+        // Find the user by ID
+        const existingUser = await User.findOne({ userID: userID });
 
+        if (!existingUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Update the user properties based on the request body
+        existingUser.nickname = req.body.nickname || existingUser.nickname;
+        existingUser.lastname = req.body.lastname || existingUser.lastname;
+        existingUser.firstname = req.body.firstname || existingUser.firstname;
+        existingUser.password = req.body.password || existingUser.password;
+        existingUser.phonenumber = req.body.phonenumber || existingUser.phonenumber;
+        existingUser.email = req.body.email || existingUser.email;
+
+        // Save the updated user
+        const updatedUser = await existingUser.save();
+
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 
 //Get all Method
@@ -87,22 +113,6 @@ app.get('/getAllSortOnNickname', async(req, res) => {
     }
 })
 
-//Get by ID Method
-app.get('/getOneID/:id', async(req, res) => {
-    try{
-        const data = await User.findById(req.params.id);
-        res.json(data)
-    }
-    catch(error){
-        res.status(500).json({message: error.message})
-    }
-})
-
-//Update by ID Method
-app.patch('/update/:id', (req, res) => {
-    res.send('Update by ID API')
-})
-
 //Delete by nickname
 app.delete('/deletenickname/:nickname', async(req, res) => {
     try {
@@ -119,7 +129,7 @@ app.delete('/deletenickname/:nickname', async(req, res) => {
     }
 })
 
-//Delete by nickname
+//Delete by userID
 app.delete('/deleteuserid/:userID', async(req, res) => {
     try {
         const userID = req.params.userID;
