@@ -22,7 +22,7 @@ app.post('/postOne', async(req, res) => {
 })
 
 //delete 1 post based on postID
-app.delete('/deleteOne/:postID', async(req, res) => {
+app.delete('/deletePost/:postID', async(req, res) => {
     //res.send('Post API')
     try {
         const postID = req.params.postID;
@@ -35,7 +35,7 @@ app.delete('/deleteOne/:postID', async(req, res) => {
   }
 })
 
-//update 1 post based on basedID
+//update 1 post based on postID
 app.put('/updatePost/:postID', async (req, res) => {
     const postId = req.params.postID;
 
@@ -60,6 +60,36 @@ app.put('/updatePost/:postID', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+//get all posts
+app.get('/getAllPosts', async (req, res) => {
+    try {
+        // Retrieve the list of all posts
+        const allPosts = await Post.find();
+        res.status(200).json(allPosts);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+//get number of post based on a range of postID
+app.get('/getPosts', async (req, res) => {
+    try {
+        // Set default values for limit and offset or extract them from the query parameters
+        const limit = parseInt(req.query.limit) //|| 3; // Default limit to 10 if not provided
+        const offset = parseInt(req.query.offset) //|| 2; // Default offset to 0 if not provided
+
+        // Retrieve the list of posts with postID in the range from 1 to 5, applying limit and offset
+        const postsInRange = await Post.find()
+            .limit(limit)
+            .skip(offset);
+
+        res.status(200).json(postsInRange);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 
 module.exports = app;
