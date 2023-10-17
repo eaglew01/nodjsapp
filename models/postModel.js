@@ -9,7 +9,7 @@ const tagValidator = [
     },
   ];
   
-
+// Fields for the post
 var postSchema=new mongoose.Schema({
         postID: {
         type: Number,

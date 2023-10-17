@@ -1,4 +1,4 @@
-Read on github to get formatting syntax
+Read on github to get the formatting syntax
 
 
 GITHUB LINK = https://github.com/eaglew01/nodjsapp.git
@@ -24,6 +24,9 @@ CRUD INTERFACES:
 
 ## GET : Get one user based on userID
 /getOne/:userID
+
+## GET: Get one user based on firstname and lastname
+/getByFirstnameLastname
 
 ## GET: Get one user based on nickname
 /getByNickname/:nickname
@@ -66,10 +69,8 @@ offset = skips postts
 ## PUT update 1 post based on postID
 updatePost/:postID
 
-get all users from database
-
 # EXTRAS
+- every post/user gets an auto incremented ID
 -The mongoDB URI and password is not on github, but stored in a seperate .env file.
-
 -Added encryption to the password send to the databae
     https://www.geeksforgeeks.org/password-encryption-in-node-js-using-bcryptjs-module/

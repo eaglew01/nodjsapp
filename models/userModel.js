@@ -4,6 +4,7 @@ const validator=require('validator');
 const bcrypt = require('bcryptjs');
 //const { Int32 } = require('mongodb');
 
+// Function to validate if a name contains only alphabetic characters and spaces
 const nameValidator = [
     {
       validator: value => /^[A-Za-z ]+$/.test(value),
@@ -11,7 +12,7 @@ const nameValidator = [
     },
   ];
   
-
+// Fields for the user
 var userSchema=new mongoose.Schema({
         userID: {
         type: Number,

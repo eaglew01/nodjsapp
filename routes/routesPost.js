@@ -1,11 +1,9 @@
 // ******PACKAGES******
 require('dotenv').config();
 const express = require('express');
-//const router = express.Router();
-//const mongoose = require('mongoose');
 const app = express();
 const Post=  require('../models/postModel');
-//const mongoURI=process.env.MONGO_URI;
+
 
 // ******ROUTES******
 //Create 1 new post
@@ -21,6 +19,7 @@ app.post('/postOne', async(req, res) => {
   }
 })
 
+
 //delete 1 post based on postID
 app.delete('/deletePost/:postID', async(req, res) => {
     //res.send('Post API')
@@ -34,6 +33,7 @@ app.delete('/deletePost/:postID', async(req, res) => {
       res.status(500).json({message: error.message})
   }
 })
+
 
 //update 1 post based on postID
 app.put('/updatePost/:postID', async (req, res) => {
@@ -61,6 +61,7 @@ app.put('/updatePost/:postID', async (req, res) => {
     }
 });
 
+
 //get all posts
 app.get('/getAllPosts', async (req, res) => {
     try {
@@ -71,6 +72,7 @@ app.get('/getAllPosts', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
 
 //get number of post based on a range of postID
 app.get('/getPosts', async (req, res) => {
@@ -90,6 +92,7 @@ app.get('/getPosts', async (req, res) => {
     }
 });
 
+
 //get number of post based on a category
 app.get('/getPostsCategory/:category', async (req, res) => {
     try {
@@ -105,5 +108,6 @@ app.get('/getPostsCategory/:category', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
 
 module.exports = app;
